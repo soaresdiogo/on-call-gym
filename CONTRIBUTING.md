@@ -8,6 +8,11 @@ The most valuable contribution is a new incident. You can help in three ways:
    criteria are already written) and comment on its issue so nobody duplicates the work.
 3. **Improve an existing scenario**: clearer hints, a better variant, a sharper post-mortem.
 
+## Your fork vs. a pull request
+
+Learners keep their solved incidents in `my-incidents/` on their own fork (`npm run lab -- export <id>`). That
+folder is personal: do not include it in pull requests to this repository.
+
 ## Setup
 
 ```bash

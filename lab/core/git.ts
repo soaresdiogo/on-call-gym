@@ -12,11 +12,11 @@ const GIT_ENVIRONMENT = {
   GIT_COMMITTER_EMAIL: 'lab@on-call-gym.invalid',
 };
 
-export async function git(cwd: string, args: readonly string[]): Promise<string> {
+export async function git(cwd: string, args: readonly string[], environment: Record<string, string> = {}): Promise<string> {
   try {
     const { stdout } = await run('git', ['-c', 'commit.gpgsign=false', '-c', 'core.hooksPath=/dev/null', ...args], {
       cwd,
-      env: { ...process.env, ...GIT_ENVIRONMENT },
+      env: { ...process.env, ...GIT_ENVIRONMENT, ...environment },
     });
     return stdout;
   } catch (error) {

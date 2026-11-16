@@ -110,6 +110,28 @@ npm run lab -- stop retry-storm        # stops the services; your workspace is k
 npm run lab -- solution retry-storm --reveal   # post-mortem and reference fix, after you are done
 ```
 
+## Keep your solved incidents (portfolio)
+
+Your attempts live in `.gym/`, which git ignores, so nothing you do while studying is pushed anywhere. You only
+need a clone to practise. When you want to show your work, fork the repository and export the attempt:
+
+```bash
+npm run lab -- export retry-storm
+```
+
+`export` runs the verifier first, then writes `my-incidents/retry-storm/`:
+
+| File | What it holds |
+|---|---|
+| `README.md` | The alert, every check with its result, and the verdict |
+| `fix.diff` | Your changes since the start of the exercise |
+| `verification.json` | The same result, machine-readable, with the date and the lab commit |
+| `POSTMORTEM.md` | A template for your own post-mortem. Created once and never overwritten |
+
+It also rebuilds `my-incidents/README.md`, an index of every incident you exported. Commit the folder on your
+fork (`git add my-incidents && git commit -m "Solve retry-storm"`). The verdict comes from the verifier, so
+an attempt that is still failing is exported as STILL FAILING.
+
 ## Automate it, then try it on a variant
 
 `retry-storm` and `false-green` include an automation exercise. Your workspace has `automation/detector.ts`

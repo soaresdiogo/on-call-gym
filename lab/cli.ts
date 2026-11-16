@@ -1,3 +1,4 @@
+import { exportCommand } from './commands/export.js';
 import { automateCommand, verifyCommand } from './commands/verify.js';
 import { hintCommand } from './commands/hint.js';
 import { installWorkflowCommand } from './commands/install-workflow.js';
@@ -20,6 +21,7 @@ const COMMANDS: Record<string, Command> = {
   hint: ({ positionals }) => hintCommand(positionals[0], positionals[1]),
   verify: ({ positionals }) => verifyCommand(positionals[0]),
   automate: ({ positionals }) => automateCommand(positionals[0]),
+  export: ({ positionals }) => exportCommand(positionals[0]),
   reset: ({ positionals, flags }) => resetCommand(positionals[0], flags.has('yes')),
   stop: ({ positionals }) => stopCommand(positionals[0]),
   solution: ({ positionals, flags }) => solutionCommand(positionals[0], flags),
@@ -36,6 +38,7 @@ Usage: npm run lab -- <command> [scenario] [options]
   hint <id> [n]              next hint, or hint n
   verify <id>                check your fix (exit 0 recovered, 1 still failing, 2 not verified)
   automate <id>              evaluate your automation on a variant of the incident
+  export <id>                verify, then save your fix, verdict and post-mortem to my-incidents/<id>/
   reset <id> [--yes]         back to the starting code and data (asks before discarding changes)
   stop <id>                  stop the services of an attempt
   solution <id> --reveal     post-mortem and reference fix (--apply copies the fix into your workspace)
