@@ -23,11 +23,17 @@ What has actually been run, where, and what is still pending. Update this file b
 | `order-not-found`, `double-submit`, `duplicate-webhook`, `oversold-inventory` against the running stack | `start`, `reproduce`, `verify` | symptom shown (500; two orders; two shipments; two paid orders for one unit); verify exits 1 |
 | Tutor skill in the real Claude Code client | see [tutor-evaluation.md](tutor-evaluation.md) | 4/4 cases pass |
 
+## GitHub Actions (ubuntu-24.04)
+
+| What | Run | Result |
+|---|---|---|
+| Official CI on the first push to `main`: `npm ci`, typecheck, the 58 tests (all scenario meta-tests, the local Actions runner tests and the CLI flow), `npm audit` | [run 43829925718](https://github.com/soaresdiogo/on-call-gym/actions/runs/43829925718) | success |
+
 ## Not yet validated
 
 | What | Why | How to close it |
 |---|---|---|
 | `false-green` on a real fork (check colour on a PR, artifact upload) | needs a real GitHub run on a fork | follow the acceptance procedure in [github-actions.md](github-actions.md) |
-| Quickstart on Linux / WSL | only macOS was available; the official CI covers Linux for `npm ci` and `npm test` | clean clone on a Linux machine or a Codespace |
+| Interactive quickstart on Linux / WSL | the official CI ran `npm ci` and the whole suite on Linux, but nobody has followed the README by hand there yet | clean clone on a Linux machine or a Codespace |
 | Tutor through Codex CLI and other assistants | not available to the maintainer | follow [ai-assistants.md](ai-assistants.md) and record results here |
 | Pilot with real learners | planned | [launch-checklist.md](launch-checklist.md) |
