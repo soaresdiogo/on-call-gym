@@ -1,6 +1,6 @@
 import { execFile } from 'node:child_process';
 import { randomUUID } from 'node:crypto';
-import { appendFile, readFile, rm } from 'node:fs/promises';
+import { appendFile, readFile, rm, writeFile } from 'node:fs/promises';
 import { join } from 'node:path';
 import { promisify } from 'node:util';
 import { afterAll, describe, expect, it } from 'vitest';
@@ -15,6 +15,7 @@ const ENVIRONMENT = {
   GYM_STORE_PORT: String(PORT_BASE),
   GYM_PROVIDER_PORT: String(PORT_BASE + 1),
   GYM_CONTROL_PORT: String(PORT_BASE + 2),
+  GYM_EXPORT_DIR: join(STATE_DIR, 'exports'),
   NO_COLOR: '1',
 };
 const WORKSPACE = join(STATE_DIR, 'attempts', 'retry-storm', 'workspace');
@@ -61,6 +62,19 @@ describe('documented CLI flow (README quickstart)', () => {
     const after = await lab('verify', 'retry-storm');
     expect(after.code, after.output).toBe(0);
     expect(after.output).toContain('RECOVERED');
+
+    const exported = await lab('export', 'retry-storm');
+    expect(exported.code, exported.output).toBe(0);
+    const exportDirectory = join(STATE_DIR, 'exports', 'retry-storm');
+    expect(await readFile(join(exportDirectory, 'README.md'), 'utf8')).toContain('**Verdict:** RECOVERED');
+    expect(await readFile(join(exportDirectory, 'fix.diff'), 'utf8')).toContain('+function backoffDelay');
+    expect(JSON.parse(await readFile(join(exportDirectory, 'verification.json'), 'utf8')).verdict).toBe('recovered');
+    // The learner's own post-mortem survives a second export, and their git index is left alone.
+    await writeFile(join(exportDirectory, 'POSTMORTEM.md'), 'My own words');
+    expect((await lab('export', 'retry-storm')).code).toBe(0);
+    expect(await readFile(join(exportDirectory, 'POSTMORTEM.md'), 'utf8')).toBe('My own words');
+    const { stdout: status } = await promisify(execFile)('git', ['status', '--porcelain'], { cwd: WORKSPACE });
+    expect(status).toContain(' M src/infrastructure/http-payment-gateway.ts');
 
     // No terminal and no --yes: reset must refuse and keep the learner's change.
     const refused = await lab('reset', 'retry-storm');

@@ -11,10 +11,19 @@ export const SCENARIOS_DIRECTORY = join(REPO_ROOT, 'scenarios');
  * from the repository's node_modules, and `reset`/`stop` must never reach outside it.
  */
 export function stateRoot(): string {
-  const configured = resolve(process.env.GYM_STATE_DIR ?? join(REPO_ROOT, '.gym'));
+  return folderInsideRepository('GYM_STATE_DIR', '.gym');
+}
+
+/** Where `export` writes solved attempts; my-incidents/ unless GYM_EXPORT_DIR says otherwise. */
+export function exportRoot(): string {
+  return folderInsideRepository('GYM_EXPORT_DIR', 'my-incidents');
+}
+
+function folderInsideRepository(variable: string, fallback: string): string {
+  const configured = resolve(process.env[variable] ?? join(REPO_ROOT, fallback));
   const inside = relative(REPO_ROOT, configured);
   if (inside === '' || inside.startsWith('..') || isAbsolute(inside)) {
-    throw new LabConfigurationError(`GYM_STATE_DIR must be a folder inside ${REPO_ROOT}`);
+    throw new LabConfigurationError(`${variable} must be a folder inside ${REPO_ROOT}`);
   }
   return configured;
 }
