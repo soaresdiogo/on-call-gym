@@ -4,6 +4,13 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    # Let new releases age before proposing them, to stay clear of compromised or broken publishes.
+    cooldown:
+      default-days: 14
+    ignore:
+      # Types must match the Node runtime pinned in .nvmrc; bump both together by hand.
+      - dependency-name: "@types/node"
+        update-types: ["version-update:semver-major"]
     groups:
       dependencies:
         patterns: ["*"]
@@ -11,3 +18,5 @@ updates:
     directory: /
     schedule:
       interval: weekly
+    cooldown:
+      default-days: 14
