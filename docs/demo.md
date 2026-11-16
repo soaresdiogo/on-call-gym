@@ -4,7 +4,7 @@
 
 ```bash
 cd on-call-gym
-nvm use && npm ci
+nvm install && npm ci
 npm run lab -- stop retry-storm
 npm run lab -- reset retry-storm --yes
 npm run lab -- start retry-storm

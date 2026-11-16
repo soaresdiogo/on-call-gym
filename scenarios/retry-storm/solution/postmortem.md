@@ -21,5 +21,6 @@ with full jitter between attempts. The provider's idempotency key keeps retries 
 - Load-test checkout with a slow (not failing) payment provider.
 
 **Automation idea.** A detector that alerts when payment calls per checkout stay above 1.5 over a 3-second window. Alerting on
-latency fails on the bursty variant, where a healthy store is slow but does not amplify.
+latency is fragile on the bursty variant, where a healthy store is slow (p95 about 860 ms) but does not amplify: a
+500 ms threshold pages for nothing, and only a narrow band between the healthy and the faulty runs passes.
 See `automation/reference/detector.ts`; try it with `npm run lab -- automate retry-storm`.
