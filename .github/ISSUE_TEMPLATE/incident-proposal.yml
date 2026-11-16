@@ -1,0 +1,51 @@
+name: Propose an incident
+description: Share an (anonymised) production incident that would make a good exercise. No implementation needed.
+labels: ["scenario-proposal"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thank you! Please remove company names, customer data, hostnames and anything confidential.
+        A rough description is enough; maintainers can help turn it into an exercise.
+  - type: input
+    id: title
+    attributes:
+      label: Short title
+      placeholder: "Cache keeps serving the old price after an update"
+    validations:
+      required: true
+  - type: textarea
+    id: alert
+    attributes:
+      label: What the on-call engineer saw first
+      description: The alert, ticket or symptom, without the cause.
+    validations:
+      required: true
+  - type: textarea
+    id: impact
+    attributes:
+      label: Impact
+      description: Who was affected and how (orders lost, money, time to recover).
+  - type: textarea
+    id: cause
+    attributes:
+      label: Root cause (maintainers only see this as a spoiler)
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: How could it be reproduced deterministically?
+      description: Data, timing, concurrency or configuration needed. Ideas are welcome.
+  - type: dropdown
+    id: level
+    attributes:
+      label: Suggested level
+      options: [junior, mid, senior]
+  - type: checkboxes
+    id: consent
+    attributes:
+      label: Confirmation
+      options:
+        - label: This description contains no confidential or personal data.
+          required: true

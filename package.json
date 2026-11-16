@@ -1,0 +1,30 @@
+{
+  "name": "on-call-gym",
+  "version": "0.1.0",
+  "description": "Your first production incident, on localhost. A lab to practice production incidents and CI/CD failures on a fictional store.",
+  "license": "MIT",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=24.22.2 <25"
+  },
+  "scripts": {
+    "lab": "tsx lab/cli.ts",
+    "store": "tsx app/src/main.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:app": "vitest run --project app",
+    "test:lab": "vitest run --project lab"
+  },
+  "dependencies": {
+    "@electric-sql/pglite": "0.5.14",
+    "fastify": "5.12.7",
+    "yaml": "2.9.1"
+  },
+  "devDependencies": {
+    "@types/node": "24.19.2",
+    "tsx": "4.23.15",
+    "typescript": "7.0.2",
+    "vitest": "5.0.5"
+  }
+}

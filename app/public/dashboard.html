@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Store Dashboard</title>
+  <link rel="stylesheet" href="/assets/styles.css">
+</head>
+<body>
+  <header>
+    <h1>Store dashboard</h1>
+    <nav><a href="/">Shop</a> · <a href="/dashboard">Dashboard</a></nav>
+  </header>
+  <main>
+    <section class="tiles">
+      <div class="tile"><span>Checkouts (60 s)</span><strong id="checkouts">0</strong></div>
+      <div class="tile"><span>Success rate</span><strong id="success">-</strong></div>
+      <div class="tile"><span>Payment calls (60 s)</span><strong id="attempts">0</strong></div>
+      <div class="tile"><span>Payment calls per checkout</span><strong id="ratio">-</strong></div>
+      <div class="tile"><span>Checkout p95</span><strong id="p95">-</strong></div>
+    </section>
+    <h2>Last 20 seconds</h2>
+    <table>
+      <thead><tr><th>Second</th><th>Checkouts</th><th>OK</th><th>Failed</th><th>Payment calls</th><th>p95 ms</th></tr></thead>
+      <tbody id="series"></tbody>
+    </table>
+  </main>
+  <script src="/assets/dashboard.js" type="module"></script>
+</body>
+</html>

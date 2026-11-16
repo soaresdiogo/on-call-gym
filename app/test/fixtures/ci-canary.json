@@ -1,0 +1,5 @@
+{
+  "description": "Fixture for the GitHub Actions challenges. Change expectedTotalCents to 2599 to make CI fail on purpose.",
+  "cart": [{ "unitPriceCents": 1299, "quantity": 2 }],
+  "expectedTotalCents": 2598
+}
