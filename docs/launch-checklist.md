@@ -6,7 +6,7 @@ Publication is the maintainer's call. Nothing here is automated.
 
 - [ ] Pilot with Ivo and two more developers (one junior, one senior). Each one completes at least
       `order-not-found` and `retry-storm` without help from the maintainer. Collect where they got stuck.
-- [ ] Quickstart verified on a clean clone (`git clone`, `nvm use`, `npm ci`, the six README commands) on macOS
+- [ ] Quickstart verified on a clean clone (`git clone`, `nvm install`, `npm ci`, the six README commands) on macOS
       and on Linux or WSL.
 - [ ] `false-green` accepted on a real fork following `docs/github-actions.md`; run URLs recorded in
       `docs/validation.md`.

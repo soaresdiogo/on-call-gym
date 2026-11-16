@@ -16,7 +16,7 @@ folder is personal: do not include it in pull requests to this repository.
 ## Setup
 
 ```bash
-nvm use && npm ci
+nvm install && npm ci
 npm run typecheck
 npm test
 ```

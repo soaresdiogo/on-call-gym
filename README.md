@@ -9,7 +9,7 @@ have recovered, you can use AI to automate the detection and test it on a varian
 
 ```bash
 git clone https://github.com/soaresdiogo/on-call-gym.git && cd on-call-gym
-nvm use            # Node 24.22.2, pinned in .nvmrc
+nvm install        # installs and selects Node 24.22.2 from .nvmrc
 npm ci
 npm run lab -- list
 npm run lab -- start retry-storm
@@ -28,7 +28,7 @@ an alert, structured logs with correlation ids, per-second metrics, and a depend
 
 ## Requirements
 
-- Node.js 24.22.2 (`.nvmrc`; `nvm use` or `fnm use` picks it up) and npm
+- Node.js 24.22.2 (`.nvmrc`; `nvm install` or `fnm install` reads it) and npm
 - git
 - macOS, Linux or WSL
 - Optional: [Claude Code](https://claude.com/claude-code) for the tutor, and a GitHub fork for the Actions track
@@ -143,7 +143,9 @@ npm run lab -- automate retry-storm
 
 The lab records real traffic against the faulty and the fixed store, for the original incident and for a
 variant with a different failure pattern. Your detector must alert on both storms and stay quiet on both
-healthy runs. A detector that alerts on latency fails the bursty variant. For `false-green`, a check that only
+healthy runs. A latency threshold barely separates them: the healthy store reaches a p95 of about 860 ms in the
+bursty variant and the faulty one about 1,150 ms, so 500 ms fails and only a narrow band passes. Payment calls per
+checkout separate them by a wide margin. For `false-green`, a check that only
 greps the YAML for one line misses the variant. The other scenarios describe an automation idea in their
 post-mortem.
 

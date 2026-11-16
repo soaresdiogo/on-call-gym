@@ -17,10 +17,11 @@ What has actually been run, where, and what is still pending. Update this file b
 | A store that cannot load is "not verified" (exit 2), not a failure | `lab/test/cli.test.ts` | passed |
 | `retry-storm` reproduce against the running stack | `npm run lab -- reproduce retry-storm` | normal phase 100% success, 1.00 calls per checkout; slow phase 0% success, 5.00 calls per checkout (100 calls/s for 20 checkouts/s) |
 | `retry-storm` verify, faulty vs reference | `npm run lab -- verify retry-storm` | 0/60 vs 60/60 checkouts; 5.00 vs 1.00 calls per checkout; 5 vs 3 attempts in an outage; median retry gap 1 ms vs 175 ms |
-| `retry-storm` automation | `npm run lab -- automate retry-storm` | starter fails; reference detector passes 4/4; a latency-threshold detector fails the bursty variant |
+| `retry-storm` automation | `npm run lab -- automate retry-storm` | starter fails; reference detector passes 4/4. A p95 > 1000 ms detector also passes 4/4 (worst p95: healthy bursty 860 ms, faulty bursty 1,158 ms), so latency only works in a narrow band; a 500 ms threshold alerts on the healthy bursty run |
 | `false-green` verify, faulty vs reference | `npm run lab -- verify false-green` | faulty: green with 13 tests run and 1 failed; fixed: red with the failing canary, green with the healthy fixture |
 | `false-green` automation | `npm run lab -- automate false-green` | starter fails; reference passes 5/5; a "grep the YAML for pipefail" detector fails the variant |
 | `order-not-found`, `double-submit`, `duplicate-webhook`, `oversold-inventory` against the running stack | `start`, `reproduce`, `verify` | symptom shown (500; two orders; two shipments; two paid orders for one unit); verify exits 1 |
+| Anonymous clone and quickstart start (no credentials, Node installed with `nvm install`) | `git clone`, `nvm install`, `npm ci`, `npm run lab -- list` | passed on macOS; repository visibility `public` |
 | Tutor skill in the real Claude Code client | see [tutor-evaluation.md](tutor-evaluation.md) | 4/4 cases pass |
 
 ## GitHub Actions (ubuntu-24.04)
